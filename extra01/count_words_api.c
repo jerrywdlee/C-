@@ -15,14 +15,18 @@ int main(int argc, char *argv[]) {
     fflush(stdout); /* # refresh steam (if do as api, must refresh) */
     if(!argv[1]){
       //printf("Usage: %s filename\n", argv[0]);
-      printf("Please Enter Your File Path&Name...\n");
+      //printf("Please Enter Your File Path&Name...\n");
       scanf("%s",&file_path); /* # Enter File path&name if no arguments */
       //exit(0);
     }else{
       strcpy(file_path, argv[1]); /* # Or use argument */
     }
     if((fp=fopen(file_path,"r"))==NULL){
-        perror("Whoops!"); /* # If file reader error */
+        printf("{\"error\":\"");
+        fflush(stdout);
+        perror(NULL); /* # output error as json */
+        printf("\"}\n");
+        fflush(stdout);
         my_pause();
         exit(0);
     }
@@ -44,7 +48,7 @@ int main(int argc, char *argv[]) {
           words_number ++;
           total_words_num ++;
         }
-        printf("Line:%d, words=%d, characters=%d\n", lines_number, words_number, char_number);
+        //printf("Line:%d, words=%d, characters=%d\n", lines_number, words_number, char_number);
         char_number = words_number = last_char_not_blank = 0;
       }else{
         if (((temp_char==' ')||(temp_char=='\t'))&&(last_char_not_blank)){
@@ -71,7 +75,7 @@ int main(int argc, char *argv[]) {
 
 void my_pause() {
   //fflush(stdout);
-  getchar();
-  printf("\nPress any key to continue...\n" );
-  getchar();
+  //getchar();
+  //printf("\nPress any key to continue...\n" );
+  //getchar();
 }
